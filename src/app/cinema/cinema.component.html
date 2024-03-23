@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4"> 
+            <ul *ngIf="villes" class="list-group" >
+                <li [ngClass]="v==currentVille?'active':''" *ngFor="let v of villes._embedded.villes" class="list-group-item"  (click)="onGetcinemas(v)" style="cursor: pointer">
+                    {{v.name}}
+                </li>
+            </ul> </div>
+        <div class="col-md-8"> 
+            <div class="panel panel-default" [className]="pane">
+                <div class="panel-heading">
+                    Liste Des Cinemas
+                </div>
+                <div class="panel-body">
+                    <ul *ngIf="cinemas" class="nav nav-pills" >
+                        <li *ngFor="let c of cinemas._embedded.cinemas" [ngClass]="c==currentCinema?'active':''"    style="cursor: pointer">
+                          <a (click)="onGetsalles(c)" >{{c.name}}</a>  
+                        </li>
+                    </ul>
+                    <div class="row" *ngIf="salles" >
+                        <div class="col-md-6 panel panel-default" *ngFor="let s of salles._embedded.salles"  >
+                            <div class="panel-heading text-center">
+                                {{s.name}}
+                            </div>
+                            <div class="panel-body" *ngIf="s.projections">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img width="150" height="200" src="{{cinemaService.host+'/imageFilm/'+s.projections._embedded.projections[0].film.id}}" >
+                                    </div>
+                                    <div class="col-md-6" >
+                                        <ul class="list-group" >
+                                            <li class="list-group-item" >Seance : </li>
+                                            <li [ngClass]="p.seance==currentSeance?'active':''"  *ngFor="let p of s.projections._embedded.projections" (click)="onSetSeance(p.seance)" class="list-group-item"  >
+                                                {{p.seance.heureDebut}} (Prix : {{p.prix}} $)
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+
+            </div>
+        </div>
+    </div>
+</div>
