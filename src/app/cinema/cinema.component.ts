@@ -18,6 +18,7 @@ export class CinemaComponent implements OnInit {
   public  currentVille:any;
   public  currentSeance:any;
   public  currentCinema:any;
+  public panne: any;
 
   constructor(public cinemaService:CinemaService) {
     this.cinemaService.getVilles()
@@ -28,6 +29,7 @@ export class CinemaComponent implements OnInit {
         console.log(err);
       })
       this.pane="hide";
+      this.panne="hide";
 
   }
   onSetSeance(arg0: any) {
@@ -36,7 +38,9 @@ export class CinemaComponent implements OnInit {
   
   onGetcinemas(v:any){
     this.pane="panel panel-default";
-    this.currentVille=v;
+    this.currentVille=v.name;
+    this.panne="hide";
+
     this.cinemaService.getCinemas(v).
     subscribe(
       data=>{
@@ -46,6 +50,8 @@ export class CinemaComponent implements OnInit {
       })
     }
     onGetsalles(c: any) {
+      this.panne="";
+
       this.currentCinema=c;
        this.cinemaService.getSalles(c).
        subscribe(

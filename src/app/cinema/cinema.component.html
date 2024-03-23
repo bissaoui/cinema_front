@@ -2,14 +2,14 @@
     <div class="row">
         <div class="col-md-4"> 
             <ul *ngIf="villes" class="list-group" >
-                <li [ngClass]="v==currentVille?'active':''" *ngFor="let v of villes._embedded.villes" class="list-group-item"  (click)="onGetcinemas(v)" style="cursor: pointer">
+                <li [ngClass]="v.name==currentVille?'active':''" *ngFor="let v of villes._embedded.villes" class="list-group-item"  (click)="onGetcinemas(v)" style="cursor: pointer">
                     {{v.name}}
                 </li>
             </ul> </div>
         <div class="col-md-8"> 
             <div class="panel panel-default" [className]="pane">
                 <div class="panel-heading">
-                    Liste Des Cinemas
+                    Liste Des Cinemas : {{currentVille}}
                 </div>
                 <div class="panel-body">
                     <ul *ngIf="cinemas" class="nav nav-pills" >
@@ -17,10 +17,10 @@
                           <a (click)="onGetsalles(c)" >{{c.name}}</a>  
                         </li>
                     </ul>
-                    <div class="row" *ngIf="salles" >
+                    <div class="row" *ngIf="salles" [className]="panne">
                         <div class="col-md-6 panel panel-default" *ngFor="let s of salles._embedded.salles"  >
                             <div class="panel-heading text-center">
-                                {{s.name}}
+                                {{s.name}} : {{s.projections._embedded.projections[0].film.titre}}
                             </div>
                             <div class="panel-body" *ngIf="s.projections">
                                 <div class="row">
